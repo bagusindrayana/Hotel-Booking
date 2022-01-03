@@ -12,14 +12,90 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-xs-12 form-group">
+                    
                     {!! Form::label('customer_id', trans('quickadmin.bookings.fields.customer').' *', ['class' => 'control-label']) !!}
                     {!! Form::select('customer_id', $customers, old('customer_id'), ['class' => 'form-control select2']) !!}
+                    <input type="checkbox" id="add-new-costomer" name="new_customer"> <label for="add-new-costomer"> Add New Customer</label>
                     <p class="help-block"></p>
                     @if($errors->has('customer_id'))
                         <p class="help-block">
                             {{ $errors->first('customer_id') }}
                         </p>
                     @endif
+                </div>
+            </div>
+            <div class="row" id="add-new-costomer-form" style="display: none;">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Add New Customer
+                        </div>
+                        
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-xs-12 form-group">
+                                    {!! Form::label('first_name', trans('quickadmin.customers.fields.first-name').'*', ['class' => 'control-label']) !!}
+                                    {!! Form::text('first_name', old('first_name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '','disabled' => '']) !!}
+                                    <p class="help-block"></p>
+                                    @if($errors->has('first_name'))
+                                        <p class="help-block">
+                                            {{ $errors->first('first_name') }}
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 form-group">
+                                    {!! Form::label('last_name', trans('quickadmin.customers.fields.last-name').'*', ['class' => 'control-label']) !!}
+                                    {!! Form::text('last_name', old('last_name'), ['class' => 'form-control', 'placeholder' => '', 'required' => '','disabled' => '']) !!}
+                                    <p class="help-block"></p>
+                                    @if($errors->has('last_name'))
+                                        <p class="help-block">
+                                            {{ $errors->first('last_name') }}
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 form-group">
+                                    {!! Form::label('address', trans('quickadmin.customers.fields.address').'*', ['class' => 'control-label']) !!}
+                                    {!! Form::text('address', old('address'), ['class' => 'form-control', 'placeholder' => '', 'required' => '','disabled' => '']) !!}
+                                    <p class="help-block"></p>
+                                    @if($errors->has('address'))
+                                        <p class="help-block">
+                                            {{ $errors->first('address') }}
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 form-group">
+                                    {!! Form::label('phone', trans('quickadmin.customers.fields.phone').'', ['class' => 'control-label']) !!}
+                                    {!! Form::text('phone', old('phone'), ['class' => 'form-control', 'placeholder' => '','disabled' => '']) !!}
+                                    <p class="help-block"></p>
+                                    @if($errors->has('phone'))
+                                        <p class="help-block">
+                                            {{ $errors->first('phone') }}
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 form-group">
+                                    {!! Form::label('email', trans('quickadmin.customers.fields.email').'*', ['class' => 'control-label']) !!}
+                                    {!! Form::email('email', old('email'), ['class' => 'form-control', 'placeholder' => '', 'required' => '','disabled' => '']) !!}
+                                    <p class="help-block"></p>
+                                    @if($errors->has('email'))
+                                        <p class="help-block">
+                                            {{ $errors->first('email') }}
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
+                
+                            
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -101,6 +177,19 @@
     <script>
         $('.datetimepicker').datetimepicker({
             format: "YYYY-MM-DD HH:mm"
+        });
+
+        $(document).ready(function(){
+            $("#add-new-costomer").click(function(){
+                $("#add-new-costomer-form").toggle();
+                if($(this).is(":checked")){
+                    $("#add-new-costomer-form").find("input").prop("disabled", false);
+                    $("#customer_id").prop("disabled", true);
+                } else {
+                    $("#add-new-costomer-form").find("input").prop("disabled", true);
+                    $("#customer_id").prop("disabled", false);
+                }
+            });
         });
     </script>
 @stop

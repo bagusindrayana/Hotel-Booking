@@ -49,7 +49,7 @@ class BookingsController extends Controller
         }
 
         $customers = Customer::get()->pluck('full_name', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
-        $rooms = Room::get()->pluck('room_number', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
+        $rooms = Room::with('category')->get()->pluck('room_category', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
 
         return view('admin.bookings.create', compact('customers', 'rooms'));
     }
@@ -65,7 +65,17 @@ class BookingsController extends Controller
         if (!Gate::allows('booking_create')) {
             return abort(401);
         }
-        $booking = Booking::create($request->all());
+      
+        $arr = $request->all();
+        if($request->has('new_customer')){
+            $customer = Customer::create($request->all());
+            $arr['customer_id'] = $customer->id;
+        } else {
+            $request->validate([
+                'customer_id' => 'required',
+            ]);
+        }
+        $booking = Booking::create($arr);
 
         return redirect()->route('admin.bookings.index');
     }

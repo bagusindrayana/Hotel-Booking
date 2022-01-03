@@ -49,14 +49,6 @@
                 </ul>
             </li>
             @endcan
-            @can('country_access')
-            <li class="{{ $request->segment(2) == 'countries' ? 'active' : '' }}">
-                <a href="{{ route('admin.countries.index') }}">
-                    <i class="fa fa-gears"></i>
-                    <span class="title">@lang('quickadmin.countries.title')</span>
-                </a>
-            </li>
-            @endcan
             @can('category_create')
                 <li class="{{ $request->segment(2) == 'users' ? 'active active-sub' : '' }}">
                         <a href="{{ route('admin.categories.index') }}">

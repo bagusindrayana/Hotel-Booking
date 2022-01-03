@@ -70,18 +70,7 @@
                     @endif
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12 form-group">
-                    {!! Form::label('country_id', trans('quickadmin.customers.fields.country').'', ['class' => 'control-label']) !!}
-                    {!! Form::select('country_id', $countries, old('country_id'), ['class' => 'form-control select2']) !!}
-                    <p class="help-block"></p>
-                    @if($errors->has('country_id'))
-                        <p class="help-block">
-                            {{ $errors->first('country_id') }}
-                        </p>
-                    @endif
-                </div>
-            </div>
+
             
         </div>
     </div>

@@ -45,10 +45,8 @@ class CustomersController extends Controller
         if (! Gate::allows('customer_create')) {
             return abort(401);
         }
-        
-        $countries = \App\Country::get()->pluck('title', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
-
-        return view('admin.customers.create', compact('countries'));
+     
+        return view('admin.customers.create');
     }
 
     /**
@@ -81,12 +79,10 @@ class CustomersController extends Controller
         if (! Gate::allows('customer_edit')) {
             return abort(401);
         }
-        
-        $countries = \App\Country::get()->pluck('title', 'id')->prepend(trans('quickadmin.qa_please_select'), '');
-
+     
         $customer = Customer::findOrFail($id);
 
-        return view('admin.customers.edit', compact('customer', 'countries'));
+        return view('admin.customers.edit', compact('customer'));
     }
 
     /**
@@ -122,7 +118,7 @@ class CustomersController extends Controller
             return abort(401);
         }
         
-        $countries = \App\Country::get()->pluck('title', 'id')->prepend(trans('quickadmin.qa_please_select'), '');$bookings = \App\Booking::where('customer_id', $id)->get();
+        $bookings = \App\Booking::where('customer_id', $id)->get();
 
         $customer = Customer::findOrFail($id);
 
